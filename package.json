@@ -1,0 +1,10 @@
+{
+  "name": "maroon-europium-vedalia",
+  "version": "0.1.0",
+  "description": "Build script for youtube-dl from context menu.",
+  "author": "Klein",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chrome": "^0.0.236"
+  }
+}

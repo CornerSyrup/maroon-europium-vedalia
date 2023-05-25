@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube-DL Builder",
+  "description": "Build script for youtube-dl from context menu.",
+  "version": "0.1.0",
+  "action": {
+    "default_icon": {
+      "16": "assets/images/icon16.png",
+      "24": "assets/images/icon24.png",
+      "32": "assets/images/icon32.png"
+    }
+  },
+  "icons": {
+    "16": "assets/images/icon16.png",
+    "48": "assets/images/icon48.png",
+    "128": "assets/images/icon128.png"
+  },
+  "background": {
+    "service_worker": "scripts/background.js"
+  },
+  "permissions": [
+    "storage",
+    "contextMenus",
+    "tabs",
+    "downloads",
+    "notifications"
+  ]
+}
