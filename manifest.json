@@ -16,7 +16,7 @@
     "128": "assets/images/icon128.png"
   },
   "background": {
-    "service_worker": "scripts/background.js"
+    "service_worker": "scripts/context-menu.js"
   },
   "permissions": [
     "storage",

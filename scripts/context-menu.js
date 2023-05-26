@@ -65,10 +65,12 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: "clear",
     title: "Clear saved scripts",
+    documentUrlPatterns: ["https://*.youtube.com/*"],
   });
   chrome.contextMenus.create({
     id: "export",
     title: "Export and clear all saved scripts",
+    documentUrlPatterns: ["https://*.youtube.com/*"],
   });
 });
 
