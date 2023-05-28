@@ -2,7 +2,7 @@ const videoScript = (vid) =>
   `C:/Users/klein_private/scoop/apps/python/current/Scripts/youtube-dl.exe -o "%%(channel_id)s-%%(channel)s/%%(title)s-%%(id)s.%%(ext)s" --external-downloader aria2c -f bestaudio[ext=m4a],bestvideo[ext=mp4] --add-metadata --xattrs --write-thumbnail --embed-thumbnail https://youtu.be/${vid}`;
 
 const musicScript = (vid) =>
-  `C:/Users/klein_private/scoop/apps/python/current/Scripts/youtube-dl.exe -o "%%(channel_id)s/%%(title)s.%%(ext)s" --external-downloader aria2c -f bestvideo[ext=mp4] --add-metadata --xattrs --write-thumbnail --embed-thumbnail https://youtu.be/${vid}`;
+  `C:/Users/klein_private/scoop/apps/python/current/Scripts/youtube-dl.exe -o "%%(channel)s/%%(title)s.%%(ext)s" --external-downloader aria2c -f bestvideo[ext=mp4] --add-metadata --xattrs --write-thumbnail --embed-thumbnail https://youtu.be/${vid}`;
 
 const tabUrl = (info, tab) => tab.url;
 const linkUrl = (info, tab) => info.linkUrl;
