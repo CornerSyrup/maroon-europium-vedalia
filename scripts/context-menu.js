@@ -4,18 +4,39 @@ const videoScript = (vid) =>
 const musicScript = (vid) =>
   `C:/Users/klein_private/scoop/apps/python/current/Scripts/youtube-dl.exe -o "%%(channel)s/%%(title)s.%%(ext)s" --external-downloader aria2c -f bestvideo[ext=mp4] --add-metadata --xattrs --write-thumbnail --embed-thumbnail https://youtu.be/${vid}`;
 
+let scriptCount;
+
+const refreshScriptCount = (cnt) =>
+  chrome.action
+    .setBadgeText({ text: cnt.toString() })
+    .then(() => (scriptCount = cnt));
+
+chrome.runtime.onInstalled.addListener(() =>
+  chrome.storage.local
+    .get("script")
+    .then((old) => (old.script ? old.script.split("\n").length - 1 : 0))
+    .then(refreshScriptCount)
+    .then(() => chrome.action.setBadgeBackgroundColor({ color: "white" }))
+);
+
 const tabUrl = (info, tab) => tab.url;
 const linkUrl = (info, tab) => info.linkUrl;
 const extractVID = (page) => new URL(page).searchParams.get("v");
 
 const builder = (url) => (template) => (info, tab) => {
   const vid = extractVID(url(info, tab));
-  return chrome.storage.local.get("script").then((old) =>
-    chrome.storage.local.set({
-      script: (old.script ?? "") + template(vid) + "\n",
-    })
-  );
+  return chrome.storage.local
+    .get("script")
+    .then((old) =>
+      chrome.storage.local.set({
+        script: (old.script ?? "") + template(vid) + "\n",
+      })
+    )
+    .then(() => refreshScriptCount(scriptCount + 1));
 };
+
+const cleanScripts = () =>
+  chrome.storage.local.clear().then(() => refreshScriptCount(0));
 
 const exportScripts = () =>
   chrome.storage.local
@@ -33,7 +54,7 @@ const exportScripts = () =>
             type: "basic",
           })
     )
-    .then(() => chrome.storage.local.clear());
+    .then(cleanScripts);
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
@@ -79,7 +100,7 @@ const handlers = {
   audio: builder(tabUrl)(musicScript),
   "video-link": builder(linkUrl)(videoScript),
   "audio-link": builder(linkUrl)(musicScript),
-  clear: () => chrome.storage.local.clear(),
+  clear: cleanScripts,
   export: exportScripts,
 };
 
