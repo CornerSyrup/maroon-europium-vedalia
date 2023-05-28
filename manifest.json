@@ -8,7 +8,8 @@
       "16": "assets/images/icon16.png",
       "24": "assets/images/icon24.png",
       "32": "assets/images/icon32.png"
-    }
+    },
+    "default_title": "Export and Clear scripts"
   },
   "icons": {
     "16": "assets/images/icon16.png",

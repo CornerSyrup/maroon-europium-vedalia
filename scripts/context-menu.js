@@ -19,21 +19,20 @@ chrome.runtime.onInstalled.addListener(() =>
     .then(() => chrome.action.setBadgeBackgroundColor({ color: "white" }))
 );
 
-const tabUrl = (info, tab) => tab.url;
-const linkUrl = (info, tab) => info.linkUrl;
+const tabUrl = (_, tab) => tab.url;
+const linkUrl = (info, _) => info.linkUrl;
 const extractVID = (page) => new URL(page).searchParams.get("v");
 
-const builder = (url) => (template) => (info, tab) => {
-  const vid = extractVID(url(info, tab));
-  return chrome.storage.local
+const builder = (url) => (template) => (info, tab) =>
+  chrome.storage.local
     .get("script")
     .then((old) =>
       chrome.storage.local.set({
-        script: (old.script ?? "") + template(vid) + "\n",
+        script:
+          (old.script ?? "") + template(extractVID(url(info, tab))) + "\n",
       })
     )
     .then(() => refreshScriptCount(scriptCount + 1));
-};
 
 const cleanScripts = () =>
   chrome.storage.local.clear().then(() => refreshScriptCount(0));
@@ -108,4 +107,4 @@ chrome.contextMenus.onClicked.addListener((info, tab) =>
   handlers[info.menuItemId](info, tab)
 );
 
-chrome.action.onClicked.addListener((tab) => exportScripts());
+chrome.action.onClicked.addListener(() => exportScripts());
