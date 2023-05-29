@@ -8,7 +8,7 @@ let scriptCount;
 
 const refreshScriptCount = (cnt) =>
   chrome.action
-    .setBadgeText({ text: cnt.toString() })
+    .setBadgeText({ text: cnt ? cnt.toString() : "" })
     .then(() => (scriptCount = cnt));
 
 chrome.runtime.onInstalled.addListener(() =>
