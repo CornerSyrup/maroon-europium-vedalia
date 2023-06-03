@@ -11,13 +11,11 @@ const refreshScriptCount = (cnt) =>
     .setBadgeText({ text: cnt ? cnt.toString() : "" })
     .then(() => (scriptCount = cnt));
 
-chrome.runtime.onInstalled.addListener(() =>
-  chrome.storage.local
-    .get("script")
-    .then((old) => (old.script ? old.script.split("\n").length - 1 : 0))
-    .then(refreshScriptCount)
-    .then(() => chrome.action.setBadgeBackgroundColor({ color: "white" }))
-);
+chrome.storage.local
+  .get("script")
+  .then((old) => (old.script ? old.script.split("\n").length - 1 : 0))
+  .then(refreshScriptCount)
+  .then(() => chrome.action.setBadgeBackgroundColor({ color: "white" }));
 
 const tabUrl = (_, tab) => tab.url;
 const linkUrl = (info, _) => info.linkUrl;
