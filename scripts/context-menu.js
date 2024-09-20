@@ -1,8 +1,8 @@
 const videoScript = (vid) =>
-  `C:/Users/klein_private/scoop/apps/python/current/Scripts/youtube-dl.exe -o "%%(channel_id)s-%%(channel)s/%%(title)s-%%(id)s.%%(ext)s" --external-downloader aria2c -f bestaudio[ext=m4a],bestvideo[ext=mp4] --add-metadata --xattrs --write-thumbnail --embed-thumbnail --all-subs https://youtu.be/${vid}`;
+  `yt-dlp --external-downloader aria2c --add-metadata --xattrs --write-thumbnail --embed-thumbnail --all-subs -f bestaudio[ext=m4a],bestvideo[ext=mp4] -o "%%(channel_id)s-%%(channel)s/%%(title)s-%%(id)s.%%(ext)s" https://youtu.be/${vid}`;
 
 const musicScript = (vid) =>
-  `C:/Users/klein_private/scoop/apps/python/current/Scripts/youtube-dl.exe -o "%%(channel)s/%%(title)s.%%(ext)s" --external-downloader aria2c -f bestvideo[ext=mp4] --add-metadata --xattrs --write-thumbnail --embed-thumbnail --all-subs https://youtu.be/${vid}`;
+  `yt-dlp --external-downloader aria2c --add-metadata --xattrs --write-thumbnail --embed-thumbnail --all-subs -f bestaudio[ext=m4a] -o "%%(channel)s/%%(title)s.%%(ext)s" https://youtu.be/${vid}`;
 
 let scriptCount;
 
